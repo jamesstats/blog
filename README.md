@@ -1,6 +1,6 @@
 # Projects Blog
 <p>
-  This is my projects blog where I post all the projects I have worked on using public data. The blog is rendered using Rstudio program using bookdown and deployed with github-pages.
+  This is my projects blog where I post all the projects I have worked on using public data. The blog is rendered using <code>Rstudio</code> program using <code>bookdown</code> and deployed with github-pages.
 </p>
 
 ### Template
