@@ -1,1 +1,21 @@
-# A caucus-race and a long tale
+# Pollsters
+ 
+```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center'}  
+
+library(ggplot2)
+library(lubridate)
+library(tidyverse) 
+library(readxl)
+buden_ <- read_excel("~/buden_.xltx", sheet = "clean") 
+buden_$end_date<-mdy(buden_$end_date) 
+
+ggplot(buden_, mapping = aes(x=end_date, y=share,color=approval))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2)+
+  scale_colour_manual(values = c('red','grey','green'))+
+  labs(title = 'President Biden Approval Tracking',x='Date',
+       y='%Percentage%', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'bottom') +
+  facet_wrap(~pollster)  
+```
