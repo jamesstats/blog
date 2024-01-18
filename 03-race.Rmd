@@ -1,105 +1,70 @@
 # Project 2024
 <p>
-Looking at the 2024 presidential election polling between President Biden and Trump in what would be a re-match of 2020.
+Looking at the 2024 presidential election national polling between President Biden and Trump head to head national with key groups of black, hispanic and under 35 voters who were key to Biden 2020 win.
 </p>
- 
-## Polling with 3rd Parties
-<p>
-Third party candidates keep Biden and Trump below or just above 40's in their re-match according to these polls.
-</p>
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="How Third Parties candidates would affect the election"}  
+```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results"}  
 
+library(cowplot)
 library(ggplot2)
 library(lubridate)
 library(tidyverse) 
-library(readxl)
-ballots <- read_excel("~/ballots.xltx", sheet = "3_way")  
+library(readxl) 
+library(gridExtra)
+ 
+ballots <- read_excel("~/ballots.xltx", sheet = "H2H")  
 ballots$end_date<-mdy(ballots$end_date) 
 
-ggplot(ballots, mapping = aes(x=end_date, y=Third_Party,color=answer))+
+h_h<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way,color=candidate_name))+
   geom_point(alpha=1/10,size=5) +
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
-  scale_colour_manual(values = c('blue','grey','orange',"green","red","yellow"))+
-  labs(title = ' ',x='Date',caption = "sources:538.com(jamesstats.github.io)",
+  scale_colour_manual(values = c('red','blue'))+
+  labs(title = 'Biden vs Trump',x=' ',caption = " ",
        y='%Percentage%', colour='Key')+
   theme_bw()+
-  theme(legend.position = 'bottom')  
+  theme(legend.position = 'none') +
+  theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold")) 
+
+blk<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_BLK,color=candidate_name))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  scale_colour_manual(values = c('red','blue'))+
+  labs(title = 'Biden vs Trump:Black Voters',x='',caption = " ",
+       y=' ', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'none') +
+  theme(plot.title = element_text(face = "bold",hjust = 1),axis.text = element_text(face = "bold"))
+
+hsp<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_HISP,color=candidate_name))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  scale_colour_manual(values = c('red','blue'))+
+  labs(title = 'Biden vs Trump:Hispanic Voters',x=' ',caption = " ",
+       y='%Percentage%', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'bottom')+
+  theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold"))
+
+u35<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_U35,color=candidate_name))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  scale_colour_manual(values = c('red','blue'))+
+  labs(title = 'Biden vs Trump:Under35 Voters',x=' ',caption = "sources:538.com(jamesstats.github.io/blog)",
+       y=' ', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'bottom')+
+   theme(plot.title = element_text(face = "bold",hjust = 1),
+        plot.caption = element_text(face = 'italic'),axis.text = element_text(face = 'bold')) 
+plist<-list(h_h,blk,hsp,u35) 
+grid.arrange(grobs = plist, ncol = 2) ## display plot  
  
 ```
 
-### Under 35 Age Group
-<p>
-Robert F.Kennedy Jr has strong support from the under 35 who seems to move away from both Biden and Trump and keep him in the low to high teens.
-</P>
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="How Third Parties candidates would affect the election"}  
-
-library(ggplot2)
-library(lubridate)
-library(tidyverse) 
-library(readxl)
-ballots <- read_excel("~/ballots.xltx", sheet = "3_way")  
-ballots$end_date<-mdy(ballots$end_date) 
-
-ggplot(ballots, mapping = aes(x=end_date, y=Third_Party_U35,color=answer))+
-  geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
-  scale_colour_manual(values = c('blue','grey','orange',"green","red","yellow"))+
-  labs(title = 'Under 35 With Third Parties Candidates ',x='Date',
-       caption = "sources:538.com(jamesstats.github.io)",
-       y='%Percentage%', colour='Key')+
-  theme_bw()+
-  theme(legend.position = 'bottom')  
  
-```
 
-## Black voters
-<p>
-Biden is held in the 60's with black voters who he won with 90% of the vote in 2020 with Trump hoovering between 15% and 20% more than the 10% he received in 2020.
-</p>
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="How Third Parties candidates would affect the election"}  
 
-library(ggplot2)
-library(lubridate)
-library(tidyverse) 
-library(readxl)
-ballots <- read_excel("~/ballots.xltx", sheet = "3_way")  
-ballots$end_date<-mdy(ballots$end_date) 
 
-ggplot(ballots, mapping = aes(x=end_date, y=Third_Party_BLK,color=answer))+
-  geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
-  scale_colour_manual(values = c('blue','grey','orange',"green","red","yellow"))+
-  labs(title = 'Black Voters With Third Parties Candidates ',x='Date',
-       caption = "sources:538.com(jamesstats.github.io)",
-       y='%Percentage%', colour='Key')+
-  theme_bw()+
-  theme(legend.position = 'bottom')  
- 
-```
 
-## Hispanic voters
-<p>
-Robert F.Kennedy Jr seems to be taking hispanic voters from both Biden and Trump as he hoovers around 20%
-while keeping them below 40%.
-</p>
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="How Third Parties candidates would affect the election"}  
 
-library(ggplot2)
-library(lubridate)
-library(tidyverse) 
-library(readxl)
-ballots <- read_excel("~/ballots.xltx", sheet = "3_way")  
-ballots$end_date<-mdy(ballots$end_date) 
 
-ggplot(ballots, mapping = aes(x=end_date, y=Third_Party_HISP,color=answer))+
-  geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
-  scale_colour_manual(values = c('blue','grey','orange',"green","red","yellow"))+
-  labs(title = 'Hispanic Voters With Third Parties Candidates ',x='Date',
-       caption = "sources:538.com(jamesstats.github.io)",
-       y='%Percentage%', colour='Key')+
-  theme_bw()+
-  theme(legend.position = 'bottom')  
- 
-```
+
 
