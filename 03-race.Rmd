@@ -1,6 +1,11 @@
 # Project 2024
 <p>
-Looking at the 2024 presidential election national polling between President Biden and Trump head to head national with key groups of black, hispanic and under 35 voters who were key to Biden 2020 win.
+ Project 2024 is about President Biden and Donald Trump re-match from the 2020 election in which Biden won 51%-47% nationally with 306 electoral votes.
+</p>
+
+## National Polling
+<p>
+Head to head national polling is neck and neck between Biden and Trump. The polls shows Trump doing well with black voters by doubling his 10% from 2020 while increasing support from hispanic and under 35 voters.  
 </p>
 ```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results"}  
 
@@ -59,8 +64,67 @@ grid.arrange(grobs = plist, ncol = 2) ## display plot
  
 ```
 
+## Third Party Spoilers?
+<p>
+Some of the national polling also includes third party candidates with Robert F.Kennedy Jr being the most known because of the last name. Jill Stein is also running again after spoiling for Hillary Clinton in 2016. It's yet to be seen if they will maintain their support in November but the re-match of Biden and Trump is creating a space for them.
+</p>
  
+```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results"}  
 
+library(cowplot)
+library(ggplot2)
+library(lubridate)
+library(tidyverse) 
+library(readxl) 
+library(gridExtra)
+ 
+ballot_3 <- read_excel("~/ballots.xltx", sheet = "3_way")   
+ballot_3$end_date<-mdy(ballot_3$end_date) 
+
+h3h<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party,color=answer))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
+  labs(title = 'Biden & Trump vs Third Party ',x=' ',caption = " ",
+       y='%Percentage%', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'none') +
+  theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold")) 
+
+blk_3<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_BLK,color=answer))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
+  labs(title = 'Black Voters',x='',caption = " ",
+       y=' ', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'none') +
+  theme(plot.title = element_text(face = "bold",hjust = 1),axis.text = element_text(face = "bold"))
+
+hsp_3<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_HISP,color=answer))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+    scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
+  labs(title = 'Hispanic Voters',x=' ',caption = " ",
+       y='%Percentage%', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'bottom')+
+  theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold"))
+
+u_35<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_U35,color=answer))+
+  geom_point(alpha=1/10,size=5) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+   scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
+  labs(title = 'Under 35 Voters',x=' ',caption = "sources:538.com(jamesstats.github.io/blog)",
+       y=' ', colour='Key')+
+  theme_bw()+
+  theme(legend.position = 'none')+
+   theme(plot.title = element_text(face = "bold",hjust = 1),
+        plot.caption = element_text(face = 'italic'),axis.text = element_text(face = 'bold')) 
+plist<-list(h3h,blk_3,hsp_3,u_35) 
+grid.arrange(grobs = plist, ncol = 2) ## display plot  
+ 
+```
 
 
 
