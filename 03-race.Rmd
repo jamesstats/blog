@@ -7,7 +7,7 @@
 <p>
 Head to head national polling is neck and neck between Biden and Trump. The polls shows Trump doing well with black voters by doubling his 10% from 2020 while increasing support from hispanic and under 35 voters.  
 </p>
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results"}  
+```{r biden_vs_trump,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results",dpi=720}   
 
 library(cowplot)
 library(ggplot2)
@@ -21,7 +21,7 @@ ballots$end_date<-mdy(ballots$end_date)
 
 h_h<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way,color=candidate_name))+
   geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
   labs(title = 'Biden vs Trump',x=' ',caption = " ",
        y='%Percentage%', colour='Key')+
@@ -31,9 +31,9 @@ h_h<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way,color=candidate_name))+
 
 blk<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_BLK,color=candidate_name))+
   geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
-  labs(title = 'Biden vs Trump:Black Voters',x='',caption = " ",
+  labs(title = 'Black Voters',x='',caption = " ",
        y=' ', colour='Key')+
   theme_bw()+
   theme(legend.position = 'none') +
@@ -41,9 +41,9 @@ blk<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_BLK,color=candidate_nam
 
 hsp<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_HISP,color=candidate_name))+
   geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
-  labs(title = 'Biden vs Trump:Hispanic Voters',x=' ',caption = " ",
+  labs(title = 'Hispanic Voters',x=' ',caption = " ",
        y='%Percentage%', colour='Key')+
   theme_bw()+
   theme(legend.position = 'bottom')+
@@ -53,7 +53,7 @@ u35<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_U35,color=candidate_nam
   geom_point(alpha=1/10,size=5) +
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
-  labs(title = 'Biden vs Trump:Under35 Voters',x=' ',caption = "sources:538.com(jamesstats.github.io/blog)",
+  labs(title = 'Under 35 Voters',x=' ',caption = "sources:538.com\njamesstats.github.io/blog",
        y=' ', colour='Key')+
   theme_bw()+
   theme(legend.position = 'bottom')+
@@ -69,7 +69,7 @@ grid.arrange(grobs = plist, ncol = 2) ## display plot
 Some of the national polling also includes third party candidates with Robert F.Kennedy Jr being the most known because of the last name. Jill Stein is also running again after spoiling for Hillary Clinton in 2016. It's yet to be seen if they will maintain their support in November but the re-match of Biden and Trump is creating a space for them.
 </p>
  
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results"}  
+```{r biden_trump_3rd_party,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=8,fig.align='center', fig.cap="National polling results",dpi=720}   
 
 library(cowplot)
 library(ggplot2)
@@ -93,7 +93,7 @@ h3h<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party,color=answer))+
 
 blk_3<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_BLK,color=answer))+
   geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
+  geom_smooth(method = 'loess', formula = 'y~x',span= 1, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
   labs(title = 'Black Voters',x='',caption = " ",
        y=' ', colour='Key')+
@@ -115,7 +115,7 @@ u_35<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_U35,color=answer)
   geom_point(alpha=1/10,size=5) +
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
    scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
-  labs(title = 'Under 35 Voters',x=' ',caption = "sources:538.com(jamesstats.github.io/blog)",
+  labs(title = 'Under 35 Voters',x=' ',caption = "sources:538.com\njamesstats.github.io/blog",
        y=' ', colour='Key')+
   theme_bw()+
   theme(legend.position = 'none')+

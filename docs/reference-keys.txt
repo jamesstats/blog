@@ -1,9 +1,7 @@
-fig:unnamed-chunk-5
-fig:unnamed-chunk-6
 project-biden
-biden-approval-tracking
+biden-approval-chart
 methodology-used-by-pollsters
-all-the-pollsters
+a-list-pollsters
 polling-methods
 project-2024
 national-polling

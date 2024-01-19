@@ -6,31 +6,39 @@ site: bookdown::bookdown_site
 ---
 # Project Biden
 <p>
-Project Biden is tracking the approval ratings since the beginning of the first term in 2021. The polls used are sourced from *538.com* and filtered by their A ratings
+Project Biden is looking at the approval ratings since the beginning of the first term in 2021. The polls used are sourced from *538.com*. 
 <p/> 
 
-## Biden approval tracking 
+## Biden approval chart 
 <p>
-The tracking uses polls with rating of A by 538.com. The pollsters/firms used are ABC/Washington Post, Beacon/Shaw(Fox News),Cygnal(Republican),Marist Polls(NPR/PBS),Monmouth University, PPP(Democratic),Quinnipiac University,Selzer & Co(Grinnell College),Siena/NYT and suffolk University.
+The chart uses polling from <code>538.com</code> calculated to a 7-day rolling average and fit the trend lines with **Loess** regression curves with a span/bandwidth of *0.1*.
 <p/>
 
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080, fig.height=5,fig.width=9,fig.align='center'}  
+```{r biden_approval,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080, fig.height=5,fig.width=9,fig.align='center',fig.cap="President Biden Approval chart"}  
 
 library(ggplot2)
+library(dplyr) 
+library(zoo) 
 library(lubridate)
 library(tidyverse) 
 library(readxl)
 buden_ <- read_excel("~/buden_.xltx", sheet = "clean") 
-buden_$end_date<-mdy(buden_$end_date) 
+buden_$end_date<-mdy(buden_$end_date)
 
-ggplot(buden_, mapping = aes(x=end_date, y=share,color=approval))+
+biden<-buden_%>%
+  mutate(app_7d = rollmeanr(share, k=7, fill=NA)) 
+  
+ggplot(biden, mapping = aes(x=end_date, y=app_7d,color=approval))+
   geom_point(alpha=1/10,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2)+
-  scale_colour_manual(values = c('red','grey','green'))+
-  labs(title = 'Approve the job President Biden is doing?',caption = "sources:538.com(jamesstats.github.io/blog)",    x='Date',
+  geom_smooth(method = 'loess', formula = 'y~x',span=0.1, se=FALSE, lwd=2)+
+  scale_colour_manual(values = c('tomato','grey','black'))+
+  labs(title = 'Approve the job President Biden is doing?',caption = "sources:538.com\njamesstats.github.io/blog",    x='',
        y='%Percentage%', colour='Key')+
   theme_bw()+
-  theme(legend.position = 'bottom') 
+  theme(legend.position = 'bottom') +
+  theme(plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = 'italic'),axis.text = element_text(face = 'bold'))
+    
 
 ```
 
@@ -39,7 +47,7 @@ ggplot(buden_, mapping = aes(x=end_date, y=share,color=approval))+
 Majority of the polls are conducted through the live phone and the others are a mix of live phone,online panel and text based. 
 <p/> 
 
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080,  fig.height=5,fig.width=8,fig.align='center'}  
+```{r polls_method,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080,  fig.height=5,fig.width=8,fig.align='center',fig.cap="The Different ways pollsters conduct their polls"}  
 
 library(ggplot2)
 library(lubridate)
@@ -48,23 +56,25 @@ library(readxl)
 buden_ <- read_excel("~/buden_.xltx", sheet = "clean") 
 buden_$end_date<-mdy(buden_$end_date) 
 
-ggplot(buden_, mapping = aes(x=end_date, y=share,color=approval))+
+ggplot(biden, mapping = aes(x=end_date, y=app_7d,color=approval))+
   geom_point(alpha=1/10,size=5) +
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2)+
-  scale_colour_manual(values = c('red','grey','green'))+
-  labs(title = 'How the polls are conducted',caption = "sources:538.com(jamesstats.github.io/blog)",       x='Date',
+  scale_colour_manual(values = c('tomato','grey','black'))+
+  labs(title = 'How the polls are conducted',caption = "sources:538.com\njamesstats.github.io/blog",       x='',
        y='%Percentage%', colour='Key')+
   theme_bw()+
   theme(legend.position = 'bottom') +
+  theme(plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = 'italic'),axis.text = element_text(face = 'bold')) +
   facet_wrap(~methodology)  
 ```
 
-## All the pollsters
+## A-list pollsters
 <p>
-All the pollsters compared against each other with the polls they have conducted and shows how Biden is viewed by the public.
+A comparison of the A-list/rated pollsters by **538.com** who have conducted nation polls on President Biden on how they stack against each other. Marist Polls seems to be more bullish on Biden than the others.  
 <p/>
 
-```{r,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080, fig.height=5,fig.width=8,fig.align='center'}  
+```{r A_polls,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080, fig.height=5,fig.width=8,fig.align='center',fig.cap="Individual results from the pollsters"}  
 
 library(ggplot2)
 library(lubridate)
@@ -73,13 +83,15 @@ library(readxl)
 buden_ <- read_excel("~/buden_.xltx", sheet = "clean") 
 buden_$end_date<-mdy(buden_$end_date) 
 
-ggplot(buden_, mapping = aes(x=end_date, y=share,color=approval))+
+ggplot(biden, mapping = aes(x=end_date, y=app_7d,color=approval))+
   geom_point(alpha=1/10,size=5) +
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2)+
-  scale_colour_manual(values = c('red','grey','green'))+
-  labs(title = 'Pollsters and their polls',x='Date',caption = "sources:538.com(jamesstats.github.io/blog",
+  scale_colour_manual(values = c('tomato','grey','black'))+
+  labs(title = 'Pollsters and their polls',x='',caption = "sources:538.com\njamesstats.github.io/blog",
        y='%Percentage%', colour='Key')+
   theme_bw()+
   theme(legend.position = 'bottom') +
+  theme(plot.title = element_text(face = "bold"),
+        plot.caption = element_text(face = 'italic'),axis.text = element_text(face = 'bold')) +
   facet_wrap(~pollster)  
 ``` 
