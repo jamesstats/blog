@@ -74,7 +74,7 @@ ggplot(january, mapping = aes(x=end_date, y=pct_07da,color=answer))+
   geom_point(alpha=1/20,size=5) +
   geom_smooth(method = 'loess', formula = 'y~x',span=0.5, se=FALSE, lwd=2)+
   geom_hline(yintercept = 50, linetype="dashed")+
-  scale_colour_manual(values = c('black','gold','darkgreen',"tomato"))+
+  scale_colour_manual(values = c("navyblue",'black','gold','darkgreen',"tomato"))+
   labs(title = 'Republican Presidential Primary/Caucus',x='',subtitle = "",
        caption = "source::538.com\njamesstats.github.io/blog/Project-Republicans", 
        y='%Percentage%', colour='Key')+
