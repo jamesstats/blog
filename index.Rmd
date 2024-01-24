@@ -1,8 +1,6 @@
 --- 
-title: "Projects Blog"
-author: "by james"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
+site: bookdown::bookdown_site 
 ---
 # Project Biden
 <p>
@@ -11,7 +9,7 @@ Project Biden is looking at the approval ratings since the beginning of the firs
 
 ## Biden approval chart 
 <p>
-The chart uses polling from <code>538.com</code> calculated to a 7-day rolling average and fit the trend lines with **Loess** regression curves with a span/bandwidth of *0.1*.
+The chart uses polling from <code>538.com</code> calculated to a 7-day rolling average and fit the trend lines with **Loess** regression curves with a span of <code>0.1</code>.
 <p/>
 
 ```{r biden_approval,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE,fig.dpi=1080, fig.height=5,fig.width=9,fig.align='center',fig.cap="President Biden Approval chart"}  
@@ -33,7 +31,7 @@ ggplot(biden, mapping = aes(x=end_date, y=app_7d,color=approval))+
   geom_smooth(method = 'loess', formula = 'y~x',span=0.1, se=FALSE, lwd=2)+
   scale_colour_manual(values = c('tomato','grey','black'))+
   labs(title = 'Approve the job President Biden is doing?',caption = "sources:538.com\njamesstats.github.io/blog",    x='',
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'bottom') +
   theme(plot.title = element_text(face = "bold"),
@@ -61,7 +59,7 @@ ggplot(biden, mapping = aes(x=end_date, y=app_7d,color=approval))+
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2)+
   scale_colour_manual(values = c('tomato','grey','black'))+
   labs(title = 'How the polls are conducted',caption = "sources:538.com\njamesstats.github.io/blog",       x='',
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'bottom') +
   theme(plot.title = element_text(face = "bold"),
@@ -88,7 +86,7 @@ ggplot(biden, mapping = aes(x=end_date, y=app_7d,color=approval))+
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2)+
   scale_colour_manual(values = c('tomato','grey','black'))+
   labs(title = 'Pollsters and their polls',x='',caption = "sources:538.com\njamesstats.github.io/blog",
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'bottom') +
   theme(plot.title = element_text(face = "bold"),

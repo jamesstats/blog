@@ -5,7 +5,7 @@ a-list-pollsters
 project-republicans
 national-polling
 states-polling
-iowas-new-hampshire
+iowa-new-hampshire
 nevadamichigan-and-south-carolina
 project-2024
 national-polling-1

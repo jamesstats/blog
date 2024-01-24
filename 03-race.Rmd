@@ -24,7 +24,7 @@ h_h<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way,color=candidate_name))+
   geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
   labs(title = 'Biden vs Trump',x=' ',caption = " ",
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'none') +
   theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold")) 
@@ -34,7 +34,7 @@ blk<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_BLK,color=candidate_nam
   geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
   labs(title = 'Black Voters',x='',caption = " ",
-       y=' ', colour='Key')+
+       y=' ', colour=' ')+
   theme_bw()+
   theme(legend.position = 'none') +
   theme(plot.title = element_text(face = "bold",hjust = 1),axis.text = element_text(face = "bold"))
@@ -44,7 +44,7 @@ hsp<-ggplot(ballots, mapping = aes(x=end_date, y=Two_Way_HISP,color=candidate_na
   geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('red','blue'))+
   labs(title = 'Hispanic Voters',x=' ',caption = " ",
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'bottom')+
   theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold"))
@@ -86,7 +86,7 @@ h3h<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party,color=answer))+
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
   labs(title = 'Biden & Trump vs Third Party ',x=' ',caption = " ",
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'none') +
   theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold")) 
@@ -96,7 +96,7 @@ blk_3<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_BLK,color=answer
   geom_smooth(method = 'loess', formula = 'y~x',span= 1, se=FALSE, lwd=2) +
   scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
   labs(title = 'Black Voters',x='',caption = " ",
-       y=' ', colour='Key')+
+       y=' ', colour=' ')+
   theme_bw()+
   theme(legend.position = 'none') +
   theme(plot.title = element_text(face = "bold",hjust = 1),axis.text = element_text(face = "bold"))
@@ -106,7 +106,7 @@ hsp_3<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_HISP,color=answe
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
     scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
   labs(title = 'Hispanic Voters',x=' ',caption = " ",
-       y='%Percentage%', colour='Key')+
+       y='%Percentage%', colour=' ')+
   theme_bw()+
   theme(legend.position = 'bottom')+
   theme(plot.title = element_text(face = "bold"),axis.text = element_text(face = "bold"))
@@ -116,7 +116,7 @@ u_35<-ggplot(ballot_3, mapping = aes(x=end_date, y=Third_Party_U35,color=answer)
   geom_smooth(method = 'loess', formula = 'y~x',span=1, se=FALSE, lwd=2) +
    scale_colour_manual(values = c('blue','yellow',"green","red","purple"))+
   labs(title = 'Under 35 Voters',x=' ',caption = "sources:538.com\njamesstats.github.io/blog",
-       y=' ', colour='Key')+
+       y=' ', colour=' ')+
   theme_bw()+
   theme(legend.position = 'none')+
    theme(plot.title = element_text(face = "bold",hjust = 1),
