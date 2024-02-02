@@ -6,7 +6,7 @@ Everything about the 2024 republican presidential primary which is the former pr
 <p>
 Trump with a commanding lead against who ever pops-up to second place. All the polls are sourced from <code>538.com</code>, only non-partisan polls which means they are not sponsored by the candidates or their allies. The polls are calculated on a 7-day average and the trendlines are fitted with **Loess** regression curves with a 0.5 span.
 </p>
-```{r ,gop_primary,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=10,fig.align='center', dpi=720, fig.cap="Top four candidates nation polling"}  
+```{r ,gop_primary,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=10,fig.align='center', dpi=900}  
 
 library(ggplot2)
 library(lubridate)
@@ -85,10 +85,10 @@ ggplot(january, mapping = aes(x=end_date, y=pct_07da,color=answer))+
         plot.subtitle = element_text(face = "italic",size = 12),strip.text.x.top = element_text(face = "bold")) +
   facet_wrap(~state)  
 ```
-### Nevada,Michigan and South Carolina
+### Michigan, Nevada and South Carolina
 <p>
 </p>
-```{r ,nevada_michigan_scarolina,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=10,fig.align='center', dpi=720, fig.cap="Top four candidates nation polling"}  
+```{r ,nevada_michigan_scarolina,echo = FALSE, results = 'hide', warning = FALSE,message=FALSE, fig.height=5,fig.width=12,fig.align='center', dpi=900}   
 
 library(ggplot2)
 library(lubridate)
@@ -96,10 +96,10 @@ library(tidyverse)
 library(zoo)
 library(dplyr) 
 library(readxl)
-primary_polls <- read_excel("primary_polls.xltx", sheet = "states") 
-primary_polls$end_date<-mdy(primary_polls$end_date) 
+minvsc <- read_excel("~/Documents/elections_files/minvsc.xlsx")  
+  
 ###rolling average
-states <- primary_polls %>%
+states <- minvsc %>%
   dplyr::arrange(desc(answer)) %>% 
   dplyr::group_by(answer) %>% 
   dplyr::mutate(pct_03da = zoo::rollmean(pct, k = 3, fill = NA),
@@ -108,12 +108,12 @@ states <- primary_polls %>%
                 pct_15da = zoo::rollmean(pct, k = 15, fill = NA),
                 pct_21da = zoo::rollmean(pct, k = 21, fill = NA)) %>% 
   dplyr::ungroup() 
-###february primary/caucus
-february<-states[states$state %in% c("Nevada","Michigan","South_Carolina"),]
-###rolling average chart for february states
-ggplot(february, mapping = aes(x=end_date, y=pct_07da,color=answer))+
+###February primary/caucus
+february<-states[states$state %in% c("Nevada","Michigan","SouthCarolina"),]
+###rolling average chart for February states
+ggplot(february, mapping = aes(x=end_date, y=pct_03da, color=answer))+
   geom_point(alpha=1/20,size=5) +
-  geom_smooth(method = 'loess', formula = 'y~x',span=0.5, se=FALSE, lwd=2)+
+   geom_smooth(method = 'loess', formula = 'y~x',span=0.7, se=FALSE, lwd=2) +
   geom_hline(yintercept = 50, linetype="dashed")+
   scale_colour_manual(values = c('black','gold','darkgreen',"tomato"))+
   labs(title = 'Republican Presidential Primary/Caucus',x='',subtitle = "",
