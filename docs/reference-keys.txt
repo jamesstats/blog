@@ -6,9 +6,8 @@ project-republicans
 national-polling
 states-polling
 iowa-new-hampshire
-nevadamichigan-and-south-carolina
+michigan-nevada-and-south-carolina
 project-2024
 national-polling-1
 third-party-spoilers
 project-dallas-cowboys
-michigan-nevada-and-south-carolina
